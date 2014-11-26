@@ -8,12 +8,35 @@
 
 <body>
 
+  <div id="header">
+    
+  </div>
 
-<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="/assets/js/underscore.min.js"></script>
-<script type="text/javascript" src="/assets/js/mustache.min.js"></script>
-<script type="text/javascript" src="/assets/js/backbone.min.js"></script>
-<script type="text/javascript" src="/assets/js/helpers.js"></script>
+  <div id="content">
+    
+  </div>
+
+
+<script type="text/template" id="book-template">
+  <ul>
+    <li><%= title %></li>
+    <li><%= authors %></li>
+  </ul>
+  <button class="delete">Delete</button>
+</script>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/underscore.min.js"></script>
+<script type="text/javascript" src="assets/js/mustache.min.js"></script>
+<script type="text/javascript" src="assets/js/backbone.min.js"></script>
+<script type="text/javascript" src="assets/js/helpers.js"></script>
+
+<script type="text/javascript" src="app/models/book.js"></script>
+<script type="text/javascript" src="app/collections/books.js"></script>
+<script type="text/javascript" src="app/views/book.js"></script>
+<script type="text/javascript" src="app/views/books.js"></script>
+<script type="text/javascript" src="app/fixtures/books.json"></script>
+<script type="text/javascript" src="app/app.js"></script>
 
 <script type="text/javascript">
 </script>
