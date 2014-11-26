@@ -9,21 +9,39 @@
 <body>
 
   <div id="header">
-    
+    <div id="books">
+      <form id="add-listing" action="#">
+        <div>
+          <label for="title">Title: </label><input id="title" type="text" />
+          <label for="authors">Author: </label><input id="authors" type="text" />
+          <button id="add">Add</button>
+        </div>
+      </form>
+    </div>    
   </div>
 
   <div id="content">
     
   </div>
 
-
 <script type="text/template" id="book-template">
+  <ul>
+    <li><%= title %></li>
+    <li><%= author %></li>
+  </ul>
+  <button class="delete">Delete</button>
+</script>
+
+
+<script type="text/template" id="listing-template">
   <ul>
     <li><%= title %></li>
     <li><%= authors %></li>
   </ul>
   <button class="delete">Delete</button>
 </script>
+
+
 
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/underscore.min.js"></script>
@@ -32,10 +50,17 @@
 <script type="text/javascript" src="assets/js/helpers.js"></script>
 
 <script type="text/javascript" src="app/models/book.js"></script>
+<script type="text/javascript" src="app/models/listing.js"></script>
+
 <script type="text/javascript" src="app/collections/books.js"></script>
+<script type="text/javascript" src="app/collections/listings.js"></script>
+
 <script type="text/javascript" src="app/views/book.js"></script>
 <script type="text/javascript" src="app/views/books.js"></script>
-<script type="text/javascript" src="app/fixtures/books.json"></script>
+<script type="text/javascript" src="app/views/listing.js"></script>
+<script type="text/javascript" src="app/views/listings.js"></script>
+
+
 <script type="text/javascript" src="app/app.js"></script>
 
 <script type="text/javascript">

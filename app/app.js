@@ -2,5 +2,5 @@ var app = app || {};
 
 
 $(function() {
-  new app.BooksView();
+  new app.ListingsView();
 });
