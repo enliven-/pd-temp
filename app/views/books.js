@@ -4,9 +4,9 @@ app.BooksView = Backbone.View.extend({
 
   el          : $('#content'),
   
-  events      : {
-    'click #add': 'addBook'
-  },
+  // events      : {
+  //   'click #add': 'addBook'
+  // },
 
   initialize : function() {
     this.collection = new app.Books();
@@ -15,6 +15,7 @@ app.BooksView = Backbone.View.extend({
       success: function(response) { that.render(); },
       error  : function(response) { }
     });
+
   },
   
   render : function() {
@@ -22,10 +23,15 @@ app.BooksView = Backbone.View.extend({
     this.collection.each( function(item) { that.renderBook(item); } )
   },
 
-  renderBook: function( item ) {
+  renderBook : function(item) {
     console.log(item);
     var bookView = new app.BookView({ model: item });
     this.$el.append( bookView.render().el );
+  },
+
+  addBook : function(e) {
+    e.preventDefault();
+    var book = new app.Book();
   }
 
 });

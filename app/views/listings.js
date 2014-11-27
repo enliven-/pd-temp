@@ -26,6 +26,11 @@ app.ListingsView = Backbone.View.extend({
   renderListing: function( item ) {
     var listingView = new app.ListingView({ model: item });
     this.$el.append( listingView.render().el );
-  }
+  },
 
+  addListing : function(e) {
+    e.preventDefault();
+    var listing = new app.Listing();
+    this.collection.create( listing.attributes );
+  }
 });
