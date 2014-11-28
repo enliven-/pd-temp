@@ -1,7 +1,8 @@
-var app = app || {};
+var app   = app || {};
+var host  = 'http://localhost:9393';
 
 app.Listing = Backbone.Model.extend({
-  urlRoot   : 'http://10.114.16.140:9393/listings',
+  urlRoot   : $.host + '/listings',
   defaults  : {
     book_id           : 1,
     price             : 400,

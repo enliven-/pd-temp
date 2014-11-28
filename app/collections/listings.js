@@ -1,6 +1,7 @@
-var app = app || {};
+var app   = app || {};
+// var host  = 'http://localhost:9393';
 
 app.Listings = Backbone.Collection.extend({
   model   : app.Listing,
-  url     : 'http://10.114.16.140:9393/listings'
+  url     : $.host + '/listings'
 });

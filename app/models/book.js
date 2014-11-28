@@ -1,10 +1,17 @@
-var app = app || {};
+var app   = app || {};
 
 app.Book = Backbone.Model.extend({
-  defaults: {
+  urlRoot  : $.host + '/books',
+  defaults : {
     "university"  : "Pune University"
   },
 
-  initialize : function() { console.log('cr book'); }
+  initialize : function() {
+
+  },
+
+  validate : function(attrs, options) {
+    assert(function1() && function2() && function3(), "some text");
+  }
 
 });
