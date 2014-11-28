@@ -1,0 +1,120 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/core-icons/core-icons.html">
+<link rel="import" href="/components/paper-button/paper-button.html">
+<link rel="import" href="/components/paper-fab/paper-fab.html">
+
+<link rel="import" href="/components/font-roboto/roboto.html">
+
+<polymer-element name="classified-card">
+  <template>
+    <style>
+      :host {
+        display           : block;
+        position          : relative;
+        background-color  : white;
+        padding           : 10px;
+        width             : 100%;
+        color             : darkgray;
+      }
+
+      polyfill-next-selector { content: '.card listing-title'; }
+      .card ::content listing-title {
+        font-weight       : bold;
+        font-family       : Gotham, 'Helvetica Neue', Helvetica, sans-serif;
+        color             : #666;
+      }
+
+      polyfill-next-selector { content: '.card img'; }
+      .card ::content img {
+        width             : 50px;
+        height            : 70px;
+        margin-right      : 10px;
+        padding-top       : 4px;
+      }
+
+      polyfill-next-selector { content: '.card listing-authors'; }
+      .card ::content listing-authors {
+        font-size: .8em;
+      }
+
+      polyfill-next-selector { content: '.card listing-publication'; }
+      .card ::content listing-publication {
+        font-size: .8em;
+        font-style: italic;
+      }
+      
+      .price {
+        color: #cb202d;
+      }
+
+      paper-button[raised].colored {
+        color: #fff;
+        font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+        float: right;
+        font-size : 10px;
+      }
+
+      .blue {
+        background: #00BCD4;
+      }
+      
+      .green {
+        background: #4CAF50;
+      }
+
+      paper-fab.green  {
+        background: #4CAF50;
+        margin-left: 30px;
+      }
+
+      @media (min-width: 600px) {
+        .card ::content img {
+            width             : 120px;
+            height            : 140px;
+          }
+
+
+        paper-button[raised].colored {
+          font-size : 1em;
+        }
+      }
+
+    </style>
+
+    <div class="card" layout vertical>
+    <!-- <swipeable-card> -->
+      <div layout horizontal>
+        <div class="listing-img">
+          <content select="listing-img"></content>
+        </div>
+        <div class="listing-info">
+          <content select="listing-title"></content> <br>
+          <content select="listing-authors"></content> <br>
+          <content select="listing-publication"></content> <br>
+          <span class="price">Rs <content select="listing-price"></content></span>
+        </div>
+      </div>
+
+          <div class="footer">
+            <paper-button raised="" mini="" class="colored blue" role="button" tabindex="0">Buy Now</paper-button>
+          </div>
+    <!-- </swipeable-card> -->
+    </div>
+
+
+  </template>
+  <script>
+  Polymer({
+    publish: {
+      favorite: {
+        value: false,
+        reflect: true
+      }
+    },
+    favoriteTapped: function(event, detail, sender) {
+      this.favorite = !this.favorite;
+      this.fire('favorite-tap');
+    }
+  });
+  </script>
+</polymer-element>

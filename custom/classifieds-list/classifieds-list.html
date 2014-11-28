@@ -1,0 +1,38 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/custom/classifieds-service/classifieds-service.html">
+<link rel="import" href="/custom/classified-card/classified-card.html">
+
+
+<polymer-element name="classifieds-list" attributes="url">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+      classified-card {
+        margin-bottom: 20px;
+      }
+    </style>
+    <classifieds-service id="service" url="{{ url }}" classifieds="{{ classifieds }}"></classifieds-service>
+
+    <div layout vertical center>
+      <template repeat="{{classified in classifieds}}">
+        <classified-card>
+          <listing-img><img src="/fixtures/book1.jpg"></listing-img>
+          <listing-title>{{ classified.title }}</listing-title>
+          <listing-authors>{{ classified.authors }}</listing-authors>
+          <listing-publication>{{ classified.publication }}</listing-publication>
+          <listing-price>{{ classified.price }}</listing-price>
+        </classified-card>
+      </template>
+    </div>
+
+  </template>
+  <script>
+    Polymer('classifieds-list', {
+      ready : function() { console.log('ready'); }
+    });
+  </script>
+
+</polymer-element>
