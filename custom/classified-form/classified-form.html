@@ -1,0 +1,172 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/paper-input/paper-input.html">
+<link rel="import" href="/components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/components/font-roboto/roboto.html">
+
+<link rel="import" href="/custom/classified-card/classified-card.html">
+
+<polymer-element name="classified-form">
+  <template>
+    <style>
+      #classified-form /deep/ input{
+        width: 20em;
+      }
+      #classified-form paper-input /deep/ input[is=core-input] {
+        font-family: 'RobotoDraft', sans-serif;
+      }
+      paper-input /deep/ .focused-underline {
+        height: 1px;
+      }
+      paper-icon-button#clear {
+        height: 24px;
+        display: inline;
+      }
+      .hidden {
+        display: none;
+      }
+      img {
+        width : 120px;
+        height: 140px;
+      }
+
+      ul.list {
+        list-style  : none;
+        padding     : 5px;
+        margin      : 0px;
+      }
+      ul.list li {
+        padding-bottom: 10px;
+        background-color: white;
+        border: 1px solid #eee;
+      }
+      .blue {
+        background: #00BCD4;
+      }
+      
+      .green {
+        background: #4CAF50;
+      }
+      .red {
+        background-color: #cb202d;
+      }
+      paper-button[raised] {
+        color: #fff;
+        font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+        float: right;
+      }
+
+      .actions {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .flex-text {
+        font-size : 10px;
+      }
+      @media (min-width: 600px) {
+        .flex-text {
+          font-size: 16px;
+        }
+      }
+    </style>
+ 
+    <div id="classified-form" layout vertical center>
+      <classifieds-service id="service" url="/api/classifieds.json" classifieds="{{ classifieds }}"></classifieds-service>
+      <paper-input floatinglabel id="title" label="Title" name="title" on-keyup="{{ keyup }}" value="{{ search }}"></paper-input>
+      <paper-icon-button id="clear" on-click="{{ clearfn }}" icon="clear" role="button"></paper-icon-button>
+      <template if="{{results.length > 0}}">
+        <ul class="list hide">
+          <template repeat="{{result in results}}">
+            <li on-click="{{ selectfn }}">{{result}}</li>
+          </template>
+        </ul>
+      </template>
+      <img class="hide hidden" src="/fixtures/book1.jpg">
+      <paper-input floatinglabel label="Author"      class="hide hidden" id="author"      name="author"></paper-input> <br/>
+      <paper-input floatinglabel label="Department"  class="hide hidden" id="department"  name="department"></paper-input> <br/>
+      <paper-input floatinglabel label="Subject"     class="hide hidden" id="subject"     name="subject"></paper-input> <br/>
+      <paper-input floatinglabel label="Publication" class="hide hidden" id="publication" name="publication"></paper-input> <br/>
+      <paper-input floatinglabel label="MRP"         class="hide hidden" id="price"       name="price"></paper-input> <br/>
+    </div>
+
+
+    <div class="preview hide hidden"><span>Listing Preview:</span>
+
+      <classified-card id="classified-card" class="hide hidden">
+        <listing-img      id="listing-img"><img src="/fixtures/book1.jpg"></listing-img>
+        <listing-title    id="listing-title"></listing-title>
+        <listing-authors  id="listing-authors"></listing-authors>
+        <listing-publication id="listing-publication"></listing-publication>
+        <listing-price    id="listing-price"></listing-price>
+      </classified-card>
+
+      <div class="actions hidden hide">
+        <paper-button raised="" class="colored blue flex-text" role="button" tabindex="0">Submit</paper-button>
+        <paper-button raised="" class="colored red  flex-text"  role="button" tabindex="0">Cancel</paper-button>
+      </div>
+    </div>
+
+
+  </template>
+
+  <script>
+    Polymer('classified-form', {
+      ready         : function() {
+                      },
+
+      keyup         : function(e) {
+                        this.updateResults();
+                      },
+
+      selectfn      : function(e) {
+                        var $el = $(e.target);
+                        if ($el.is("li")) {
+                          var title   = $el.text();
+                          var classified    = $.grep(this.classifieds, function(el) { return el.title === title; })[0];
+                          $el.parent().html("");
+                          this.populateForm(classified);
+                          $('classified-form /deep/ div.footer').remove();
+                        }
+                      },
+
+      clearfn       : function(e) {
+                        $('classified-form /deep/ .hide').addClass('hidden');
+                        $('classified-form /deep/ paper-input#title').attr("disabled", false);
+                        $('classified-form /deep/ #title').val('');
+                      },
+
+      updateResults : function() {
+                        var search    = this.search;
+                        var length    = search.trim().length;
+                        this.results  = [];
+                        var title;
+                        if (length < 5) { return; }
+                        for (var i = 0; i < this.classifieds.length; i++) {
+                          title = this.classifieds[i].title;
+                          if (title.toLowerCase().indexOf(search) > -1) { this.results.push(title); }
+                        }
+                        return;        
+                      },
+      populateForm  : function(classified) {
+                        $('classified-form /deep/ .hide').removeClass('hidden');
+                        $('classified-form /deep/ .list').addClass('hidden');
+                        $('classified-form /deep/ paper-input').attr("disabled", true);
+                        $('classified-form /deep/ .floated-label').removeAttr("invisible");
+
+                        $('#title /deep/ input').val(classified.title);
+                        $('#author /deep/ input').val(classified.authors);
+                        $('#department /deep/ input').val(classified.department);
+                        $('#subject /deep/ input').val(classified.subject);
+                        $('#publication /deep/ input').val(classified.publication);
+                        $('#price /deep/ input').val(classified.price);
+
+                        $('classified-form /deep/ .hide').removeClass('hidden');
+                        $('classified-form /deep/ #listing-title').html(classified.title);
+                        $('classified-form /deep/ #listing-authors').html(classified.authors);
+                        $('classified-form /deep/ #listing-publication').html(classified.publication);
+                        $('classified-form /deep/ #listing-price').html(classified.price);
+
+                      },
+    });
+  </script>
+</polymer-element>
