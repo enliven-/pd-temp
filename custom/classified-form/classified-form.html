@@ -2,6 +2,7 @@
 <link rel="import" href="/components/paper-input/paper-input.html">
 <link rel="import" href="/components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/components/font-roboto/roboto.html">
+<link rel="import" href="/custom/classifieds-service/classifieds-service.html">
 
 <link rel="import" href="/custom/classified-card/classified-card.html">
 
@@ -111,7 +112,12 @@
 
   <script>
     Polymer('classified-form', {
+      create        : function() {
+                        console.log(this.url)
+                      },
       ready         : function() {
+                        console.log(this.url)
+
                       },
 
       keyup         : function(e) {
@@ -137,6 +143,7 @@
 
       updateResults : function() {
                         var search    = this.search;
+                        console.log(search)
                         var length    = search.trim().length;
                         this.results  = [];
                         var title;

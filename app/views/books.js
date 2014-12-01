@@ -1,30 +1,27 @@
 var app = app || {};
 
 app.BooksView = Backbone.View.extend({
+  // tagName       : 'div',
+  // className     : 'books',
 
-  el          : $('#content'),
-  
-  // events      : {
-  //   'click #add': 'addBook'
-  // },
+  el         : $('.container'),
 
   initialize : function() {
     this.collection = new app.Books();
     var that = this;
     this.collection.fetch({
       success: function(response) { that.render(); },
-      error  : function(response) { }
+      error  : function(response) { console.log('error'); }
     });
-
   },
   
   render : function() {
-    var that = this;
-    this.collection.each( function(item) { that.renderBook(item); } )
+    this.collection.each(function(item) { 
+      this.renderBook(item);
+    }, this );
   },
 
   renderBook : function(item) {
-    console.log(item);
     var bookView = new app.BookView({ model: item });
     this.$el.append( bookView.render().el );
   },

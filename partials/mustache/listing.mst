@@ -1,0 +1,6 @@
+
+  <ul>
+    <li>{{ title  }}</li>
+    <li>{{ authors }}</li>
+  </ul>
+  <button class="edit">Edit</button>

@@ -1,0 +1,12 @@
+
+<div id="listing-form">
+  <form id="addListing" action="#">
+    <div>
+      <label for="title">Title: </label><input id="title" list="books"          value="{{ title }}"> <br>
+      <label for="author">Author: </label><input id="author" type="text"        value="{{ authors }}"> <br>
+      <label for="price">Price: </label><input id="releaseDate"    value="{{ price }}"> <br>
+      <label for="keywords">Keywords: </label><input id="keywords" type="text"  value="{{ title }}"> <br>
+      <button class="submit">Save</button> <br>
+    </div>
+  </form>
+</div>

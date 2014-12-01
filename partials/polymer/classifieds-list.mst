@@ -1,0 +1,4 @@
+<link rel="import" href="/custom/classifieds-list/classifieds-list.html">
+
+
+<classifieds-list url="/api/classifieds.json"></classifieds-list>

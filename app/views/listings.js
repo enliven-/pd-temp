@@ -3,24 +3,21 @@ var app = app || {};
 
 app.ListingsView = Backbone.View.extend({
 
-  el          : $('#content'),
-  
-  events      : {
-    'click #add': 'addListing'
-  },
+  el         : $('.container'),
 
   initialize : function() {
     this.collection = new app.Listings();
     var that = this;
     this.collection.fetch({
       success: function(response) { that.render(); },
-      error  : function(response) { console.log('er'); }
+      error  : function(response) { console.log('error'); }
     });
   },
   
   render : function() {
-    var that = this;
-    this.collection.each( function(item) { that.renderListing(item); } )
+    this.collection.each(function(item) { 
+      this.renderListing(item);
+    }, this );
   },
 
   renderListing: function( item ) {

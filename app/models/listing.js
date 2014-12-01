@@ -8,15 +8,7 @@ app.Listing = Backbone.Model.extend({
     price             : 400,
     user_attributes   : { name : 'Viksit Arora', mobile : '9156420350', college_id : 1},
     quality           : 0,
-    markings          : 0,
-  },
-  initialize : function() { 
-  },
-
-
-  validate : function(attrs, options) {
+    markings          : 2,
+    college_id        : 1
   }
-
-
-
 });

@@ -1,12 +1,12 @@
 var app = app || {};
 
 app.ListingView = Backbone.View.extend({
-  tagName   : 'div',
-  className : 'listing',
-  template  : _.template( $('#listing-template').html() ),
+  tagName       : 'div',
+  className     : 'listing',
+  template_path : '/partials/mustache/listing.mst',
 
   events    : {
-    'click .delete': 'deleteListing'
+    'click .edit' : 'editListing'
   },
 
   deleteListing: function() {
@@ -15,8 +15,21 @@ app.ListingView = Backbone.View.extend({
   },
 
   render: function() {
-    var rendered = this.template( this.model.toJSON() );
-    this.$el.html( rendered );
-    return this;
+    var that = this;
+    $.get('/partials/mustache/listing.mst', function(template) {
+      var rendered = Mustache.render(template, that.model.toJSON() );
+      that.$el.html( rendered );
+    });
+    return that;
+  },
+
+  editListing: function() {
+    var that = this;
+    $.get('/partials/mustache/listing-form.mst', function(template) {
+      var rendered = Mustache.render(template, that.model.toJSON() );
+      that.$el.html( rendered );
+    });
+    return that;
   }
+
 });

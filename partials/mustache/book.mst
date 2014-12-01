@@ -1,0 +1,7 @@
+
+
+  <ul>
+    <li>{{ title  }}</li>
+    <li>{{ authors }}</li>
+  </ul>
+  <button class="delete">Delete</button>
