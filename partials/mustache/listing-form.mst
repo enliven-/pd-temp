@@ -1,12 +1,6 @@
-
-<div id="listing-form">
-  <form id="addListing" action="#">
-    <div>
-      <label for="title">Title: </label><input id="title" list="books"          value="{{ title }}"> <br>
-      <label for="author">Author: </label><input id="author" type="text"        value="{{ authors }}"> <br>
-      <label for="price">Price: </label><input id="releaseDate"    value="{{ price }}"> <br>
-      <label for="keywords">Keywords: </label><input id="keywords" type="text"  value="{{ title }}"> <br>
-      <button class="submit">Save</button> <br>
-    </div>
-  </form>
-</div>
+<form class="form listing">  
+  <label for="book_id">Book ID: </label><input id="book_id" name="book_id" value="{{ book_id }}"> <br>
+  <label for="markings">markings: </label><input id="markings" name="markings" type="text" value="{{ markings }}"> <br>
+  <label for="price">Price: </label><input name="price" value="{{ price }}"> <br>
+  <button class="create">Create</button> <br>
+</form>

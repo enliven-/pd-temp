@@ -3,10 +3,9 @@ var app = app || {};
 app.ListingView = Backbone.View.extend({
   tagName       : 'div',
   className     : 'listing',
-  template_path : '/partials/mustache/listing.mst',
 
   events    : {
-    'click .edit' : 'editListing'
+    'click .edit'   : 'editListing',
   },
 
   deleteListing: function() {

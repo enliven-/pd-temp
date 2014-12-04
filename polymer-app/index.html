@@ -17,6 +17,9 @@
 
   <link rel="import" href="/components/font-roboto/roboto.html">
 
+  <link rel="import" href="/custom/classified-form/classified-form.html">
+
+
   <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
   <script type="text/javascript" src="/assets/js/underscore.min.js"></script>
   <script type="text/javascript" src="/assets/js/mustache.min.js"></script>
@@ -35,13 +38,11 @@
         <core-item icon="favorite" class="heart"></core-item>
       </core-toolbar>
       <core-menu>
-        <core-item icon="settings" label="Uniqden">
+        <core-item icon="settings" label="Listings">
+          <a href="#/listings" target="_self"></a>
         </core-item>
-        <core-item icon="account-box" label="Bookset">
-        </core-item>
-        <core-item icon="account-box" label="Book">
-        </core-item>
-        <core-item icon="account-box" label="Form">
+        <core-item icon="account-box" label="New">
+          <a href="#/new" target="_self"></a>
         </core-item>
       </core-menu>
      </core-header-panel>
@@ -72,7 +73,7 @@
 
   body {
     font-family: 'RobotoDraft', sans-serif;
-    color: black;
+    color: white;
   }
 
   core-header-panel#main {
@@ -100,6 +101,7 @@
     width: 90%;
     margin: 10px auto;
     min-width: 300px;
+    color: gray;
   }
   @media (min-width: 620px) {
     .container {
@@ -133,3 +135,5 @@
 <script type="text/javascript" src="/app/views/books.js"></script>
 <script type="text/javascript" src="/app/views/listing.js"></script>
 <script type="text/javascript" src="/app/views/listings.js"></script>
+<script type="text/javascript" src="/app/routes.js"></script>
+

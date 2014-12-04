@@ -19,11 +19,11 @@
     <div layout vertical center>
       <template repeat="{{classified in classifieds}}">
         <classified-card>
-          <listing-img><img src="/fixtures/book1.jpg"></listing-img>
-          <listing-title>{{ classified.title }}</listing-title>
-          <listing-authors>{{ classified.authors }}</listing-authors>
-          <listing-publication>{{ classified.publication }}</listing-publication>
-          <listing-price>{{ classified.price }}</listing-price>
+          <span class="listing-img"><img src="/fixtures/book1.jpg"></span>
+          <span class="listing-title">{{ classified.title }}</span>
+          <span class="listing-authors">{{ classified.authors }}</span>
+          <span class="listing-publication">{{ classified.publication }}</span>
+          <span class="listing-price">{{ classified.price }}</span>
         </classified-card>
       </template>
     </div>
@@ -31,7 +31,11 @@
   </template>
   <script>
     Polymer('classifieds-list', {
-      ready : function() { console.log('ready'); }
+      create : function() {
+        if(this.url==="") {
+          this.url = "/api/classifieds.json"
+        }
+      }
     });
   </script>
 

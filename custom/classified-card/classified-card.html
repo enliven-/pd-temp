@@ -17,19 +17,26 @@
         color             : darkgray;
       }
 
+
+      polyfill-next-selector { content: '.card img'; }
+      .card ::content img {
+        width             : 55px;
+        height            : 70px;
+        margin-right      : 10px;
+        padding-top       : 4px;
+      }
+
+      div.listing-info {
+        display: inline-block;
+      }
+
       polyfill-next-selector { content: '.card listing-title'; }
       .card ::content listing-title {
         font-weight       : bold;
         font-family       : Gotham, 'Helvetica Neue', Helvetica, sans-serif;
         color             : #666;
-      }
-
-      polyfill-next-selector { content: '.card img'; }
-      .card ::content img {
-        width             : 50px;
-        height            : 70px;
-        margin-right      : 10px;
-        padding-top       : 4px;
+        /*display           : block;*/
+        /*margin-left       : 5px;*/
       }
 
       polyfill-next-selector { content: '.card listing-authors'; }
@@ -38,7 +45,7 @@
       }
 
       polyfill-next-selector { content: '.card listing-publication'; }
-      .card ::content listing-publication {
+      .card ::content .listing-publication {
         font-size: .8em;
         font-style: italic;
       }
@@ -63,8 +70,8 @@
       }
 
       paper-fab.green  {
-        background: #4CAF50;
-        margin-left: 30px;
+        background            : #4CAF50;
+        margin-left: ;        : 30px;
       }
 
       @media (min-width: 600px) {
@@ -75,8 +82,12 @@
 
 
         paper-button[raised].colored {
-          font-size : 1em;
+          font-size           : 1em;
         }
+      }
+
+      div.footer {
+        margin-top            : -20px;
       }
 
     </style>
@@ -85,13 +96,13 @@
     <!-- <swipeable-card> -->
       <div layout horizontal>
         <div class="listing-img">
-          <content select="listing-img"></content>
+          <content select="span"></content>
         </div>
         <div class="listing-info">
-          <content select="listing-title"></content> <br>
-          <content select="listing-authors"></content> <br>
-          <content select="listing-publication"></content> <br>
-          <span class="price">Rs <content select="listing-price"></content></span>
+          <content select="span"></content> <br>
+          <content select="span"></content> <br>
+          <content select="span"></content> <br>
+          Rs<content select="span"></content>
         </div>
       </div>
 

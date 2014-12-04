@@ -1,12 +1,14 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/paper-input/paper-input.html">
+<link rel="import" href="/components/paper-slider/paper-slider.html">
+
 <link rel="import" href="/components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/components/font-roboto/roboto.html">
 <link rel="import" href="/custom/classifieds-service/classifieds-service.html">
 
 <link rel="import" href="/custom/classified-card/classified-card.html">
 
-<polymer-element name="classified-form">
+<polymer-element name="classified-form" constructor="ClassifiedForm" attributes="serializedFormData">
   <template>
     <style>
       #classified-form /deep/ input{
@@ -82,28 +84,37 @@
           </template>
         </ul>
       </template>
-      <img class="hide hidden" src="/fixtures/book1.jpg">
-      <paper-input floatinglabel label="Author"      class="hide hidden" id="author"      name="author"></paper-input> <br/>
-      <paper-input floatinglabel label="Department"  class="hide hidden" id="department"  name="department"></paper-input> <br/>
-      <paper-input floatinglabel label="Subject"     class="hide hidden" id="subject"     name="subject"></paper-input> <br/>
-      <paper-input floatinglabel label="Publication" class="hide hidden" id="publication" name="publication"></paper-input> <br/>
-      <paper-input floatinglabel label="MRP"         class="hide hidden" id="price"       name="price"></paper-input> <br/>
+      <!-- <img class="hide hidden" src="/fixtures/book1.jpg"> -->
+
+      <div  id="quality" class="hide hidden">
+        <span>Quality</span>
+      </div>
+      <paper-slider class="hide hidden" id="quality-slider" snaps="" min="0" max="2" step="1" value="0" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="2" aria-valuenow="1" on-core-change="{{ updateQuality }}"></paper-slider>
+
+      <div  id="markings" class="hide hidden">
+        <span>Markings</span>
+      </div>
+      <paper-slider class="hide hidden" id="markings-slider" snaps="" min="0" max="2" step="1" value="0" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="2" aria-valuenow="1" on-core-change="{{ updateMarkings }}"></paper-slider>
+
+      <paper-input floatinglabel label="MRP"   class="hide hidden" id="mrp" name="mrp"></paper-input>
+      <paper-input floatinglabel label="Price" class="hide hidden" id="price" name="price"></paper-input>
+
+
     </div>
 
 
-    <div class="preview hide hidden"><span>Listing Preview:</span>
-
+    <div class="preview hide hidden"><span>Listing Preview:</span> <br>
       <classified-card id="classified-card" class="hide hidden">
-        <listing-img      id="listing-img"><img src="/fixtures/book1.jpg"></listing-img>
-        <listing-title    id="listing-title"></listing-title>
-        <listing-authors  id="listing-authors"></listing-authors>
-        <listing-publication id="listing-publication"></listing-publication>
-        <listing-price    id="listing-price"></listing-price>
+        <span class="listing-img" id="listing-img"><img src="/fixtures/book1.jpg"></span>
+        <span class="listing-title"           id="listing-title">{{ classified.title }}</span>
+        <span class="listing-authors"         id="listing-authors">{{ classified.authors }}</span>
+        <span class="listing-publication"     id="listing-publication">{{ classified.publication }}</span>
+        <span class="listing-price"           id="listing-price">{{ classified.price }}</span>
       </classified-card>
 
       <div class="actions hidden hide">
-        <paper-button raised="" class="colored blue flex-text" role="button" tabindex="0">Submit</paper-button>
-        <paper-button raised="" class="colored red  flex-text"  role="button" tabindex="0">Cancel</paper-button>
+        <paper-button raised="" class="colored blue flex-text" id="create"  role="button" tabindex="0">Create</paper-button>
+        <paper-button raised="" class="colored red  flex-text" id="cancel"  role="button" tabindex="0">Cancel</paper-button>
       </div>
     </div>
 
@@ -113,11 +124,8 @@
   <script>
     Polymer('classified-form', {
       create        : function() {
-                        console.log(this.url)
                       },
       ready         : function() {
-                        console.log(this.url)
-
                       },
 
       keyup         : function(e) {
@@ -141,9 +149,36 @@
                         $('classified-form /deep/ #title').val('');
                       },
 
+      updateQuality : function(e) {
+                        var quality;
+                        var val = $('classified-form /deep/ #quality-slider').attr("aria-valuenow");
+                        if (val==="0") {
+                          quality = "Like New";
+                        } else if (val==="1") {
+                          quality = "Fair";
+                        } else if (val==="2") {
+                          quality = "Heavily Used";
+                        }
+                        $('classified-form /deep/ #quality > span').html(quality);
+                        // $('classified-form /deep/ .ring').removeClass('ring');
+                      },
+
+      updateMarkings : function(e) {
+                        var markings;
+                        var val = $('classified-form /deep/ #markings-slider').attr("aria-valuenow");
+                        if (val==="0") {
+                          markings = "No Markings";
+                        } else if (val==="1") {
+                          markings = "Few Markings";
+                        } else if (val==="2") {
+                          markings = "Heavily Marked";
+                        }
+                        $('classified-form /deep/ #markings > span').html(markings);
+                        // $('classified-form /deep/ .ring').removeClass('ring');
+                      },
+
       updateResults : function() {
                         var search    = this.search;
-                        console.log(search)
                         var length    = search.trim().length;
                         this.results  = [];
                         var title;
@@ -157,7 +192,7 @@
       populateForm  : function(classified) {
                         $('classified-form /deep/ .hide').removeClass('hidden');
                         $('classified-form /deep/ .list').addClass('hidden');
-                        $('classified-form /deep/ paper-input').attr("disabled", true);
+                        // $('classified-form /deep/ paper-input').attr("disabled", true);
                         $('classified-form /deep/ .floated-label').removeAttr("invisible");
 
                         $('#title /deep/ input').val(classified.title);
@@ -165,15 +200,27 @@
                         $('#department /deep/ input').val(classified.department);
                         $('#subject /deep/ input').val(classified.subject);
                         $('#publication /deep/ input').val(classified.publication);
-                        $('#price /deep/ input').val(classified.price);
+                        // $('#price /deep/ input').val(classified.price);
 
                         $('classified-form /deep/ .hide').removeClass('hidden');
                         $('classified-form /deep/ #listing-title').html(classified.title);
                         $('classified-form /deep/ #listing-authors').html(classified.authors);
                         $('classified-form /deep/ #listing-publication').html(classified.publication);
-                        $('classified-form /deep/ #listing-price').html(classified.price);
-
                       },
+      serializedFormData: function() {
+                            var price    = $('#price /deep/ input').val();
+                            var markings = 'no markings';
+                            var quality  = 'like new'
+                            var listing = {
+                                            book_id           : 2,
+                                            price             : 400,
+                                            user_attributes   : { name : 'Viksit Arora', mobile : '9156420350', college_id : 1},
+                                            quality           : quality,
+                                            markings          : markings,
+                                            college_id        : 1
+                                          }
+                            return listing;
+                          }
     });
   </script>
 </polymer-element>
