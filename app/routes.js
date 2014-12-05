@@ -15,6 +15,7 @@ router
   })
 
   .on('route:new', function() {
+    console.log('new')
     listingsView.renderForm({target_sel: '.container'})
   })
 

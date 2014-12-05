@@ -5,7 +5,7 @@ app.ListingView = Backbone.View.extend({
   className     : 'listing',
 
   events    : {
-    'click .edit'   : 'editListing',
+    'click #buy'   : 'buy',
   },
 
   deleteListing: function() {
@@ -29,6 +29,10 @@ app.ListingView = Backbone.View.extend({
       that.$el.html( rendered );
     });
     return that;
+  },
+
+  buy : function() {
+    console.log("buy!!")
   }
 
 });

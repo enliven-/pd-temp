@@ -2,6 +2,8 @@
 <link rel="import" href="/components/core-icons/core-icons.html">
 <link rel="import" href="/components/paper-button/paper-button.html">
 <link rel="import" href="/components/paper-fab/paper-fab.html">
+<link rel="import" href="/components/paper-shadow/paper-shadow.html">
+
 
 <link rel="import" href="/components/font-roboto/roboto.html">
 
@@ -12,16 +14,19 @@
         display           : block;
         position          : relative;
         background-color  : white;
-        padding           : 10px;
         width             : 100%;
-        color             : darkgray;
+        color             : #666;
+        border-bottom     : 1px solid #ddd;
       }
 
+      .card {
+        padding           : 10px;
+      }
 
       polyfill-next-selector { content: '.card img'; }
       .card ::content img {
-        width             : 55px;
-        height            : 70px;
+        width             : 50px;
+        height            : 65px;
         margin-right      : 10px;
         padding-top       : 4px;
       }
@@ -32,26 +37,37 @@
 
       polyfill-next-selector { content: '.card listing-title'; }
       .card ::content listing-title {
+        font-weight       : .8em;
         font-weight       : bold;
-        font-family       : Gotham, 'Helvetica Neue', Helvetica, sans-serif;
+        /*font-family       : Gotham, 'Helvetica Neue', Helvetica, sans-serif;*/
+        font-family       : proxima-nova-alt,Helvetica,Arial,sans-serif;
         color             : #666;
-        /*display           : block;*/
-        /*margin-left       : 5px;*/
       }
 
       polyfill-next-selector { content: '.card listing-authors'; }
       .card ::content listing-authors {
-        font-size: .8em;
+        font-family       : proxima-nova-alt,Helvetica,Arial,sans-serif;
+        font-size: .65em;
+        position: relative;
+        top : -3px;
       }
 
       polyfill-next-selector { content: '.card listing-publication'; }
-      .card ::content .listing-publication {
-        font-size: .8em;
+      .card ::content listing-publication {
+        font-family       : proxima-nova-alt,Helvetica,Arial,sans-serif;
+        font-size: .65em;
         font-style: italic;
+        position: relative;
+        top : -6px;
       }
-      
-      .price {
+
+      polyfill-next-selector { content: '.card listing-price'; }
+      .card ::content listing-price {
+        font-size: .8em;
         color: #cb202d;
+        font-family       : proxima-nova-alt,Helvetica,Arial,sans-serif;
+        position: relative;
+        top : -6px;
       }
 
       paper-button[raised].colored {
@@ -76,8 +92,8 @@
 
       @media (min-width: 600px) {
         .card ::content img {
-            width             : 120px;
-            height            : 140px;
+            width             : 100px;
+            height            : 120px;
           }
 
 
@@ -89,29 +105,26 @@
       div.footer {
         margin-top            : -20px;
       }
-
     </style>
 
     <div class="card" layout vertical>
-    <!-- <swipeable-card> -->
       <div layout horizontal>
         <div class="listing-img">
-          <content select="span"></content>
+          <content select="listing-img"></content>
         </div>
         <div class="listing-info">
-          <content select="span"></content> <br>
-          <content select="span"></content> <br>
-          <content select="span"></content> <br>
-          Rs<content select="span"></content>
+          <content select="listing-title"></content> <br>
+          <!-- <content select="listing-edition"></content> <br> -->
+          <content select="listing-authors"></content> <br>
+          <content select="listing-publication"></content> <br>
+          <content select="listing-price"></content>
         </div>
       </div>
 
       <div class="footer">
-        <paper-button raised="" mini="" class="colored blue" role="button" tabindex="0">Buy Now</paper-button>
+        <paper-button raised="" mini="" class="colored blue buy" role="button" tabindex="0"><a href="/#" on-click="{{ buy }}">Buy Now</a></paper-button>
       </div>
-    <!-- </swipeable-card> -->
     </div>
-
 
   </template>
   <script>
@@ -125,7 +138,8 @@
     favoriteTapped: function(event, detail, sender) {
       this.favorite = !this.favorite;
       this.fire('favorite-tap');
-    }
+    },
+    buy : function(e) { e.preventDefault(); console.log('ee'); }
   });
   </script>
 </polymer-element>

@@ -3,15 +3,16 @@
 <link rel="import" href="/custom/classified-card/classified-card.html">
 
 
-<polymer-element name="classifieds-list" attributes="url">
+<polymer-element name="classifieds-list" constructor="ClassifiedsList" attributes="url">
   <template>
     <style>
       :host {
         display: block;
         width: 100%;
+        background: #ddd;
       }
       classified-card {
-        margin-bottom: 20px;
+        /*margin-bottom: 10px;*/
       }
     </style>
     <classifieds-service id="service" url="{{ url }}" classifieds="{{ classifieds }}"></classifieds-service>
@@ -19,11 +20,12 @@
     <div layout vertical center>
       <template repeat="{{classified in classifieds}}">
         <classified-card>
-          <span class="listing-img"><img src="/fixtures/book1.jpg"></span>
-          <span class="listing-title">{{ classified.title }}</span>
-          <span class="listing-authors">{{ classified.authors }}</span>
-          <span class="listing-publication">{{ classified.publication }}</span>
-          <span class="listing-price">{{ classified.price }}</span>
+          <listing-img><img src="/fixtures/book1.jpg"></listing-img>
+          <listing-title>{{ classified.title }}</listing-title>
+          <!-- <listing-edition>{{ classified.edition }}</listing-edition> -->
+          <listing-authors>{{ classified.authors }}</listing-authors>
+          <listing-publication>{{ classified.publication }} Publications</listing-publication>
+          <listing-price>Rs {{ classified.price }}</listing-price>
         </classified-card>
       </template>
     </div>
@@ -31,9 +33,10 @@
   </template>
   <script>
     Polymer('classifieds-list', {
-      create : function() {
-        if(this.url==="") {
-          this.url = "/api/classifieds.json"
+      created : function() {
+        if(this.url==="" || this.url===undefined) {
+          this.url = "http://localhost:9393/listings";
+          // this.url = "/api/classifieds.json";
         }
       }
     });

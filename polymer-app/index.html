@@ -18,6 +18,9 @@
   <link rel="import" href="/components/font-roboto/roboto.html">
 
   <link rel="import" href="/custom/classified-form/classified-form.html">
+  <link rel="import" href="/custom/classified-card/classified-card.html">
+  <link rel="import" href="/custom/classifieds-list/classifieds-list.html">
+
 
 
   <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
@@ -48,7 +51,7 @@
      </core-header-panel>
 
 
-    <core-header-panel main shadow="" mode="scroll" id="main">
+    <core-header-panel main _shadow="" mode="scroll" id="main">
 
       <core-toolbar id="main-header">
         <paper-icon-button id="main-menu" icon="menu"></paper-icon-button>
@@ -97,9 +100,14 @@
     display: none;
   }
   
+  paper-input /deep/ .focused-underline {
+    height: 1px;
+    color: #eee;
+  }
+
   .container {
-    width: 90%;
-    margin: 10px auto;
+    /*width: 95%;*/
+    /*margin: 10px auto;*/
     min-width: 300px;
     color: gray;
   }
