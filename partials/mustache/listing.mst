@@ -1,6 +1,7 @@
-
-  <ul>
-    <li>{{ title  }}</li>
-    <li>{{ authors }}</li>
-  </ul>
-  <button class="edit">Edit</button>
+<ul>
+  <li class="listing-title">{{ title  }}</li> <br>
+  <li class="listing-authors">{{ authors  }}</li> <br>
+  <li class="listing-publication">{{ publication }}</li> <br>
+  <li class="listing-price">{{ price }}</li>
+</ul>
+<button class="buy">Buy Now</button>

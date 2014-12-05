@@ -1,0 +1,6 @@
+<ul>
+  <li class="buyer-id">{{ buyer_id  }}</li> <br>
+  <li class="college-id">{{ college_id  }}</li> <br>
+  <li class="status">{{ status }}</li> <br>
+</ul>
+<button class="cancel">Cancel Order</button>

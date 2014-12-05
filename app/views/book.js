@@ -3,7 +3,6 @@ var app = app || {};
 app.BookView = Backbone.View.extend({
   tagName       : 'div',
   className     : 'book',
-  template_path : '/partials/mustache/book.mst',
 
   events    : {
     'click .delete': 'deleteBook'

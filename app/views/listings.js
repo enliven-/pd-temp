@@ -4,12 +4,6 @@ var app = app || {};
 app.ListingsView = Backbone.View.extend({
 
   el         : $('.container'),
-  $form      : null,
-  $listings  : null,
-
-  events    : {
-    'click .buy'   : 'buy',
-  },
 
   initialize : function() {
     this.collection = new app.Listings();
@@ -21,32 +15,27 @@ app.ListingsView = Backbone.View.extend({
   },
   
   render : function() {
-    this.$listings = new ClassifiedsList();
-    this.$el.html(this.$listings);
-    // var that  = this;
+    this.collection.each(function(item) { 
+      this.renderListing(item);
+    }, this );
   },
 
-  createListing : function() {
-    console.log('create!');
-    var data      = this.$form.serializedFormData();
-    var listing   = new app.Listing(data);
-    this.collection.create( listing.attributes );
+  renderListing: function( item ) {
+    var listingView = new app.ListingView({ model: item });
+    this.$el.append( listingView.render().el );
   },
 
   renderForm: function(options) {
-    var target  = options.target_sel;
-    this.$form  = new ClassifiedForm();
-    $(target).html(this.$form);
-    var that = this;
-
-    $('classified-form /deep/ #create').on('click', function(e) {
-      e.preventDefault();
-      that.createListing();
+    var target = options.target_sel;
+    $.get('/partials/polymer/classified-form.mst', function(template) {
+      var rendered = Mustache.render(template);
+      $(target).html(rendered);
     });
   },
 
-  buy : function() {
-    console.log("buy!!")
+  createListing : function() {
+    var listing   = new app.Listing();
+    this.collection.create( listing.attributes );
   }
 
 });

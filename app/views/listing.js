@@ -5,7 +5,7 @@ app.ListingView = Backbone.View.extend({
   className     : 'listing',
 
   events    : {
-    'click #buy'   : 'buy',
+    'click .buy'   : 'placeOrder',
   },
 
   deleteListing: function() {
@@ -22,17 +22,16 @@ app.ListingView = Backbone.View.extend({
     return that;
   },
 
-  editListing: function() {
-    var that = this;
-    $.get('/partials/mustache/listing-form.mst', function(template) {
-      var rendered = Mustache.render(template, that.model.toJSON() );
-      that.$el.html( rendered );
+  placeOrder : function() {
+    var data  = {
+                  listing_id : this.model.id,
+                  buyer_attributes : { name : 'Bhushan Lodha', mobile : '9975454384' }
+                };
+    var order = new app.Order(data);
+    order.save({
+      success : function(m, r, o) { console.log(r); },
+      error   : function(m, r, o) { console.log(r); }
     });
-    return that;
-  },
-
-  buy : function() {
-    console.log("buy!!")
   }
 
 });
